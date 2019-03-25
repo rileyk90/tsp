@@ -1,0 +1,28 @@
+Save your tour files to the same folder as the TSP program file.
+
+Compile the program by executing the following code at the command line:
+
+	make
+	
+	OR
+
+	g++ -std=c++11 main.cpp tsp.cpp gls.cpp -o tsp
+
+Run the program with the following code at the command line:
+
+	./tsp [file name]
+	
+Replace [file name] with the name of the file for which you want to run the GLS algorithm.
+
+The program will output a summary of the results to the terminal and 
+the best tour solution to an output file in the same directory as the program.
+
+NOTE: Generalized limits have been put on the driving variables for the algorithm based
+      on the size of the TSP problem. The program is pre-set to terminate after 3 minutes.
+      For extra large TSP problems that are allowed to run beyond the 3 minute limit, you
+      must go to the tsp.cpp file of the program and, in the TSP constructor, setMaxTime(int)
+      in seconds or in infinite time, INT_MAX. If you choose to run the algorithm in infinite 
+      time, then you MUST define an iteration limit or the program will run in an infinite 
+      loop. Thus, if you run in infinite time and your problem size is larger than 1,000 
+      cities, then go to the tsp.cpp file again and, in the setProblem() function, define 
+      the setGlsIterations(int) to a specified integer greater than 300,000.
