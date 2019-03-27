@@ -18,6 +18,7 @@
 #include <limits.h>
 #include <math.h>
 #include <fstream>
+#include "christofides.hpp"
 
 using std::string;
 using std::cout;
@@ -31,32 +32,33 @@ using std::max;
 class TSP{
   public:
 	int	maxGLS;              // Iteration limit
-	double  maxTime;             // Time limit
+	double maxTime;          // Time limit
 	int	size;                // Size of problem (count of cities)
 	int	iteration;           // Current iteration
-	double  time;                // Current time
+	double time;             // Current time
 	int	tourCost;            // Current tour distance
 	int	bestCost;            // Best tour distance
 
-	int 	*x;                  // Cities' x values
-	int 	*y;                  // Cities' y values
-	int 	*tour;               // Current tour
+	CHR *obj;                // Christofide's object
+	int *x;                  // Cities' x values
+	int *y;                  // Cities' y values
+	int *tour;               // Current tour
 	int	*best;               // Best tour
 	int	**distance;          // Distances of all possible tour edges
 
-	ifstream inputFile;          // Input file object
-	ofstream outputFile;         // Output file object
-	string fileName;             // Input file name
+	ifstream inputFile;      // Input file object
+	ofstream outputFile;     // Output file object
+	string fileName;         // Input file name
 
-	clock_t start;               // Algorithm start time
-	clock_t lap;                 // Algorithm iteration lap time
+	clock_t start;           // Algorithm start time
+	clock_t lap;             // Algorithm iteration lap time
 
   public:
-    	TSP();                                     // Constructor
+    TSP();                                     // Constructor
 	virtual	~TSP();                            // Deconstructor
 
 	void setGlsIterations(int);                // Set max iterations of running GLS
-    	void setMaxTime(double);                   // Set max time for running algorithm
+    void setMaxTime(double);                   // Set max time for running algorithm
 	double getDuration();                      // Get algorithm elapsed time
 
 	bool setProblem(string);                   // Initialize record of cities
@@ -66,10 +68,10 @@ class TSP{
 	void runAlgorithm();                       // Run the algorithm
 	virtual void guidedLocalSearch();          // Driving algorithm
 
-	int getNext(int);                          // Get city's next neighbor
+	int	getNext(int);                          // Get city's next neighbor
 	int getPrev(int);                          // Get city's previous neighbor
 
-	int getTourCost(int*);                     // Get cost of current tour
+	int	getTourCost(int*);                     // Get cost of current tour
 	void setBest();                            // Set best tour and cost
 
 	bool hasReachedLimit();                    // Check if algorithm has reached iteration or time limit

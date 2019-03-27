@@ -28,7 +28,12 @@ TSP::TSP(){
 TSP::~TSP(){
   delete [] x;                     // Delete x values
   delete [] y;                     // Delete y values
-  delete [] tour;                  // Delete current tour
+  if(size <= 5000){                // If size is <= 5,000 , we didn't use the Christofide's algorithm
+	  delete [] tour;                // Delete current tour
+  }
+  else{                            // Else
+	  delete obj;                    // Delete Christofide's object
+  }
   delete [] best;                  // Delete best tour
   for(int i = 0; i < size; i++){   // For each edge
  	delete [] distance[i];           // Delete distance
@@ -106,13 +111,14 @@ bool TSP::setProblem(string input){
     	setGlsIterations(INT_MAX);                          // Set GLS iterations to maximum possible within time limit
     }
 
-    int null;                                             // Holds city ID (not needed since we assume cities are in order)
+	int null;                                             // Holds city ID (not needed since we assume cities are in order)
     x = new int[size];                                    // Create array for x coordinate values
     y = new int[size];                                    // Create array for y coordinate values
-    tour = new int[size];                                 // Create tour array to hold current order of cities
+    if(size <= 5000){                                     // If problem size is <= 5,000, we use don't use Christofide's
+      tour = new int[size];                                 // Create tour array to hold current order of cities
+    }
     best = new int[size];                                 // Create best array to hold best order of cities
     distance = new int*[size];                            // Create matrix to hold distances between each city
-
     for(int i = 0; i < size; i++){                        // For each city
       distance[i] = new int[size];                          // Create second dimension for distance to each city
     }
@@ -146,7 +152,14 @@ bool TSP::setProblem(string input){
  * the best tour.
 ********************************************************************************/
 void TSP::initialize(){
-  setRandomTour(tour);               // Call function to generate random first tour
+  if(size <= 5000){                  // If size is <= 5000
+	 setRandomTour(tour);              // Call function to generate random first tour
+  }
+  else{                              // Else
+    obj = new CHR(distance, size);     // Create Christofide's class object
+    tour = obj->getChristofides();     // Heuristically generate firt tour
+  }
+
   tourCost = getTourCost(tour);      // Get the cost of the tour
   setBest();                         // Set the best tour as current tour
 }
@@ -159,7 +172,7 @@ void TSP::setRandomTour(int *tour){
     tour[i] = i;                                    // Initialize ID to i
   }
 
-  std::random_shuffle(&tour[0], &tour[size-1]);   // Call function to randomize tour order
+  std::random_shuffle(&tour[0], &tour[size-1]);  // Call function to randomize tour order
 }
 
 /********************************************************************************
@@ -254,6 +267,6 @@ void TSP::outputResults(){
   outputFile.close();                              // Close output file
 
   cout << "Iterations: " << iteration << "    "    // Print computing time
-	"Best Tour: " << bestCost << "   "
-	"Total Time(sec): " << time << endl;
+		  "Best Tour: " << bestCost << "   "
+		  "Total Time(sec): " << time << endl;
 }

@@ -1,6 +1,6 @@
 /********************************************************************************
- * Author: Riley Kraft
- * Date: 03/25/2019
+ * Project Group 7: Riley Kraft, Trevor Rollins, Andrew Tjossem
+ * Date: 06/08/2018
  * Description: This is the main function to set up the TSP problem and call
  *              the GLS + FLS-2opt algorithm to find the optimal, or approximate,
  *              tour.

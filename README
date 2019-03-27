@@ -6,7 +6,7 @@ Compile the program by executing the following code at the command line:
 	
 	OR
 
-	g++ -std=c++11 main.cpp tsp.cpp gls.cpp -o tsp
+	g++ -std=c++11 main.cpp tsp.cpp gls.cpp christofides.cpp -o tsp
 
 Run the program with the following code at the command line:
 
@@ -22,7 +22,7 @@ NOTE: Generalized limits have been put on the driving variables for the algorith
       For extra large TSP problems that are allowed to run beyond the 3 minute limit, you
       must go to the tsp.cpp file of the program and, in the TSP constructor, setMaxTime(int)
       in seconds or in infinite time, INT_MAX. If you choose to run the algorithm in infinite 
-      time, then you MUST define an iteration limit or the program will run in an infinite 
+      time, then you MUST define an iteration limit or the program will run in and infinite 
       loop. Thus, if you run in infinite time and your problem size is larger than 1,000 
       cities, then go to the tsp.cpp file again and, in the setProblem() function, define 
       the setGlsIterations(int) to a specified integer greater than 300,000.

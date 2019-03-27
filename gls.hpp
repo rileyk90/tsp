@@ -18,7 +18,7 @@ class GLS: public TSP{
   public:
     double alpha;          // Parameter to tune lambda
     int lambda;            // Parameter to tune algorithm
-    int maxFLS;            // Maximum fast local search iterations
+	int maxFLS;            // Maximum fast local search iterations
 
     int *utility;          // Edge utilities
     bool *bit;             // City penalty bits
@@ -39,7 +39,7 @@ class GLS: public TSP{
     void setPenalties();                    // Reset edge penalties
     void updatePenalties();                 // Update edge penalties
 
-    int	 getSwapCost(int, int);              // Calculate cost of swapping edges
+    int	getSwapCost(int, int);              // Calculate cost of swapping edges
     void twoOptSwap(int, int, int*);        // Swap edges
     bool twoOPT(int, int);                  // 2-opt algorithm
     void fastLocalSearch();                 // Fast Local Search algorithm
